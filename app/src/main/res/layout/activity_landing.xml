@@ -7,22 +7,24 @@
     tools:context=".landing">
 
     <Button
-        android:id="@+id/btn_daftar"
+        android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Daftar"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_masuk"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintVertical_bias="0.955"
+        android:onClick="click_register"/>
 
     <Button
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
+        android:layout_marginBottom="352dp"
+        android:onClick="click_login"
         android:text="Masuk"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoneListApp">
+        <activity android:name=".add_activity"></activity>
         <activity
             android:name=".home"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.DoneListApp.NoActionBar"></activity>
+            android:theme="@style/Theme.DoneListApp.NoActionBar" />
         <activity android:name=".login" />
         <activity android:name=".register" />
         <activity android:name=".landing">
