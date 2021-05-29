@@ -52,9 +52,11 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 email = et_email.getText().toString();
                 password = et_password.getText().toString();
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    Toast.makeText(this, "Tolong isi semua kolomnya", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please fill all columns.",
+                            Toast.LENGTH_SHORT).show();
                 }else{
                     loginUser();
+                    finish();
                 }
             }
         }
@@ -65,13 +67,14 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Mengecek status keberhasilan saat login
                         if(task.isSuccessful()){
-                            Toast.makeText(login.this, "Login Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(login.this, "Login success.",
+                                    Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), home.class));
-
+                            finish();
                         }else {
-                            Toast.makeText(login.this, "Tidak Dapat Masuk, Silakan Coba Lagi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(login.this, "Login failed, check your " +
+                                    "email or password.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

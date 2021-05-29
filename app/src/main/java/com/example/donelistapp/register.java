@@ -24,11 +24,11 @@ import java.util.HashMap;
 
 public class register extends AppCompatActivity implements View.OnClickListener {
 
-    public EditText et_nama, et_email, et_password;
+    public EditText et_name, et_email, et_password;
     public Button btn_reg;
     public FirebaseAuth auth;
     public DatabaseReference db_ref;
-    public String nama, email, password, uid;
+    public String name, email, password, uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         db_ref = FirebaseDatabase.getInstance().getReference("users");
 
         //declare xml components
-        et_nama = findViewById(R.id.et_reg_nama);
+        et_name = findViewById(R.id.et_reg_name);
         et_email = findViewById(R.id.et_reg_email);
         et_password = findViewById(R.id.et_reg_password);
         btn_reg = findViewById(R.id.btn_register);
@@ -60,22 +60,21 @@ public class register extends AppCompatActivity implements View.OnClickListener 
 
     public void checkUserData() {
         //put into string variables
-        nama = et_nama.getText().toString();
+        name = et_name.getText().toString();
         email = et_email.getText().toString();
         password = et_password.getText().toString();
 
-        if (TextUtils.isEmpty(nama) || TextUtils.isEmpty(email) ||
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) ||
         TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Tolong isi semua kolom yang tersedia",
+            Toast.makeText(this, "Please fill all columns.",
                     Toast.LENGTH_SHORT).show();
         }
         else {
             if (password.length() < 6) {
-                Toast.makeText(this, "Password terlalu pendek",
+                Toast.makeText(this, "Password is too short. Minimum character is 6.",
                         Toast.LENGTH_SHORT).show();
             }
             else {
-//                progressBar.setVisibility(View.VISIBLE);
                 createAccount();
             }
         }
@@ -94,22 +93,18 @@ public class register extends AppCompatActivity implements View.OnClickListener 
 
                             uid = auth.getCurrentUser().getUid();
 
-//                            String id = db_ref.push().getKey();
                             HashMap<Object, String> data = new HashMap<>();
                             data.put("uid", uid);
-                            data.put("nama", nama);
+                            data.put("name", name);
                             data.put("email", email);
                             data.put("password", password);
-
                             db_ref.child(uid).setValue(data);
 
-//                            Intent login = new Intent(getApplicationContext(), login.class);
-//                            startActivity(login);
                             startActivity(new Intent(getApplicationContext(), login.class));
                             finish();
                         }
                         else {
-                            Toast.makeText(register.this, "Terjadi kesalahan. Silakan coba lagi.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(register.this, "Register failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
