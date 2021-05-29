@@ -27,8 +27,8 @@ public class register extends AppCompatActivity implements View.OnClickListener 
     public EditText et_nama, et_email, et_password;
     public Button btn_reg;
     public FirebaseAuth auth;
-    public DatabaseReference db;
-    public String nama, email, password;
+    public DatabaseReference db_ref;
+    public String nama, email, password, uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
 
         //firebase variables
         auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance().getReference("users");
+        db_ref = FirebaseDatabase.getInstance().getReference("users");
 
         //declare xml components
         et_nama = findViewById(R.id.et_reg_nama);
@@ -92,18 +92,21 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                             Toast.makeText(register.this, "Authentication success with e-mail "+email+"",
                                     Toast.LENGTH_SHORT).show();
 
-                            String id = db.push().getKey();
+                            uid = auth.getCurrentUser().getUid();
+
+//                            String id = db_ref.push().getKey();
                             HashMap<Object, String> data = new HashMap<>();
-                            data.put("id", id);
+                            data.put("uid", uid);
                             data.put("nama", nama);
                             data.put("email", email);
                             data.put("password", password);
-                            db.child(id).setValue(data);
+
+                            db_ref.child(uid).setValue(data);
 
 //                            Intent login = new Intent(getApplicationContext(), login.class);
 //                            startActivity(login);
-//                            startActivity(new Intent(getApplicationContext(), login.class));
-//                            finish();
+                            startActivity(new Intent(getApplicationContext(), login.class));
+                            finish();
                         }
                         else {
                             Toast.makeText(register.this, "Terjadi kesalahan. Silakan coba lagi.", Toast.LENGTH_SHORT).show();
